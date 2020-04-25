@@ -1,14 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import Tfw from 'tfw'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './view/app'
+import * as serviceWorker from './serviceWorker'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+Tfw.Theme.register(
+    "bang", {
+        bg0: "#bd881d",
+        bg3: "#fff2d9"
+    }
+)
+Tfw.Theme.apply("bang")
+
+ReactDOM.render(<App />, document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

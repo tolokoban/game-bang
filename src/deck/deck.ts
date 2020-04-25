@@ -1,4 +1,5 @@
 import { ICard, ICardKind, ICardSuit, ICardColor } from './types'
+import Tools from '../tools'
 
 const MIN_RANK = 1  // Ace
 const MAX_RANK = 13 // King
@@ -35,7 +36,7 @@ export default class Deck {
             ...cards("shop", 2)
         ]
         this.heap = []
-        shuffle(this.deck)
+        Tools.shuffle(this.deck)
         this.cast(this.deck.pop() as ICard)
 
         this.colors = []
@@ -44,7 +45,7 @@ export default class Deck {
                 this.colors.push({ rank, suit })
             }
         }
-        shuffle(this.colors)
+        Tools.shuffle(this.colors)
     }
 
     get deckCount() { return this.deck.length }
@@ -65,7 +66,7 @@ export default class Deck {
             while (heap.length > 0) {
                 deck.push(heap.pop() as ICard)
             }
-            shuffle(deck)
+            Tools.shuffle(deck)
             card = deck.pop() as ICard
         }
         this.cast(this.take() as ICard)
@@ -100,11 +101,7 @@ export default class Deck {
 
 function cards(name: string, count: number = 1): ICard[] {
     const cards: ICard[] = []
-    const card: ICard = {
-        kind: "weapon",
-        rank: 0,
-        suit: "diamonds"
-    }
+    const card: ICard = { kind: "weapon" }
 
     switch (name) {
         case "volcanic":
@@ -145,14 +142,4 @@ function cards(name: string, count: number = 1): ICard[] {
         cards.push({ ...card })
     }
     return cards
-}
-
-
-function shuffle(cards: any[]) {
-    for (let i = 0; i < cards.length; i++) {
-        const k = Math.floor(Math.random() * cards.length)
-        const tmp = cards[i]
-        cards[i] = cards[k]
-        cards[k] = tmp
-    }
 }

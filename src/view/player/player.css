@@ -1,0 +1,37 @@
+div.view-Player {
+    margin: 1rem;
+}
+
+div.view-Player > header {
+    padding: 0.25rem 1rem;
+    font-weight: bold;
+    font-variant: small-caps;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2rem;
+}
+
+div.view-Player > header > div.bullets {
+    white-space: nowrap;
+}
+
+div.view-Player > header > div.bullets > img {
+    height: 3rem;
+    max-height: 10vmin;
+    margin: 0 .5rem;
+    transform: rotate(135deg);
+}
+
+div.view-Player > header > div.bullets > img.on {
+    filter: grayscale(100%);
+    opacity: .5;
+}
+
+div.view-Player > div.body {
+    padding: 0.5rem;
+}
+
+div.view-Player div.desc {
+    padding: 0.5rem;
+}

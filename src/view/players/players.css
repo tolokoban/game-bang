@@ -1,0 +1,11 @@
+div.view-Players {
+    flex: 0 0 auto;
+    display: grid;
+    width: 100vmin;
+    height: 100vmin;
+}
+
+div.view-Players.layout-4 {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
