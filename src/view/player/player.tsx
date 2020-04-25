@@ -42,7 +42,7 @@ export default class PlayerView extends React.Component<IPlayerProps, IPlayerSta
                 }</div>
             </header>
             <div className="body">
-                <div className="thm-bg2 desc">{
+                <div className="thm-bg2 desc" style={{color: "#000"}}>{
                     player.description.join("\n")
                 }</div>
             </div>

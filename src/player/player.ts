@@ -94,7 +94,7 @@ export default class Player {
             ...skills
         }
         this.maxLives = this._skills.maxLives + (role === 'sheriff' ? 1 : 0)
-        this._lives = this.maxLives - 2
+        this._lives = Math.floor(Math.random() * this.maxLives)
     }
 
     get skills() { return { ...this._skills } }

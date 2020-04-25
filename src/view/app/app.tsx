@@ -1,6 +1,7 @@
 import React from "react"
 import PlayersView from '../players'
 import Player from '../../player'
+import Tools from '../../tools'
 
 import "./app.css"
 
@@ -11,7 +12,7 @@ interface IAppState {
 
 export default class App extends React.Component<{}, IAppState> {
     state = {
-        players: Player.getRandomPlayers(4),
+        players: Player.getRandomPlayers(Tools.pick([4, 5, 6, 7])),
         activePlayerIndex: 0
     }
 

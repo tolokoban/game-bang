@@ -1,4 +1,9 @@
-export default { range, shuffle }
+export default { pick, range, shuffle }
+
+function pick(arr: number[]): number {
+    const idx = Math.floor(Math.random() * arr.length)
+    return arr[idx]
+}
 
 function shuffle(cards: any[]) {
     for (let i = 0; i < cards.length; i++) {

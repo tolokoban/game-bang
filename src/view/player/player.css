@@ -1,5 +1,6 @@
 div.view-Player {
-    margin: 1rem;
+    margin: .5rem;
+    border-radius: 0 2rem 0 0;
 }
 
 div.view-Player > header {
