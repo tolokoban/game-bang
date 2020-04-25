@@ -1,12 +1,13 @@
-import { ICard, ICardKind, ICardSuit } from './types'
+import { ICard, ICardKind, ICardSuit, ICardColor } from './types'
 
-const SUITS: ICardSuit[] = ["diamonds", "clubs", "hearts", "spades"]
 const MIN_RANK = 1  // Ace
 const MAX_RANK = 13 // King
+const SUITS: ICardSuit[] = ["clubs", "diamonds", "hearts", "spades"]
 
 export default class Deck {
     private readonly deck: ICard[]
     private readonly heap: ICard[]
+    private readonly colors: ICardColor[]
 
     constructor() {
         this.deck = [
@@ -34,26 +35,20 @@ export default class Deck {
             ...cards("shop", 2)
         ]
         this.heap = []
-        this.deck.forEach((card: ICard, idx: number) => {
-            card.suit = SUITS[idx % SUITS.length]
-            card.rank = MIN_RANK + idx % (MAX_RANK - MIN_RANK + 1)
-        })
-        this.shuffle()
+        shuffle(this.deck)
         this.cast(this.deck.pop() as ICard)
+
+        this.colors = []
+        for (let rank = 1; rank < 14; rank++) {
+            for (let suit of SUITS) {
+                this.colors.push({ rank, suit })
+            }
+        }
+        shuffle(this.colors)
     }
 
     get deckCount() { return this.deck.length }
     get heapCount() { return this.heap.length }
-
-    shuffle() {
-        const { deck } = this
-        for (let i = 0; i < deck.length; i++) {
-            const k = Math.floor(Math.random() * deck.length)
-            const tmp = deck[i]
-            deck[i] = deck[k]
-            deck[k] = tmp
-        }
-    }
 
     // Cast a card to the heap.
     cast(card: ICard) {
@@ -70,7 +65,7 @@ export default class Deck {
             while (heap.length > 0) {
                 deck.push(heap.pop() as ICard)
             }
-            this.shuffle()
+            shuffle(deck)
             card = deck.pop() as ICard
         }
         this.cast(this.take() as ICard)
@@ -87,6 +82,18 @@ export default class Deck {
 
     getVisibleCardOnHeap(): ICard {
         return { ...this.heap[0] }
+    }
+
+    /**
+     * When you draw ("dégainer" in french) you just want to know
+     * the rank and suit of a card.
+     */
+    nextColor(): ICardColor {
+        const { colors } = this
+        const color = colors.pop()
+        if (!color) throw Error("There no more colors: that's impossible!")
+        colors.unshift(color)
+        return { ...color }
     }
 }
 
@@ -138,4 +145,14 @@ function cards(name: string, count: number = 1): ICard[] {
         cards.push({ ...card })
     }
     return cards
+}
+
+
+function shuffle(cards: any[]) {
+    for (let i = 0; i < cards.length; i++) {
+        const k = Math.floor(Math.random() * cards.length)
+        const tmp = cards[i]
+        cards[i] = cards[k]
+        cards[k] = tmp
+    }
 }
